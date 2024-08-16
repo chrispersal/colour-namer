@@ -25,7 +25,7 @@ app.post("/colournames", async function (request, response) {
   const name = request.body.name;
   const hexcode = request.body.hexcode;
   await db.query(
-    `INSERT INTO colournames (group, name, hexcode VALUES ($1, $2, $3)`,
+    `INSERT INTO colournames (group, name, hexcode) VALUES ($1, $2, $3)`,
     [group, name, hexcode]
   );
   response.json("POST endpoint here.");
