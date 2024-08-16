@@ -13,7 +13,9 @@ export default function App() {
   }, []);
 
   async function getColourNames() {
-    const response = await fetch("http://localhost:8080/colournames");
+    const response = await fetch(
+      "https://colour-namer.onrender.com/colournames"
+    );
     const data = await response.json();
     setColourNames(data);
     console.log(data);
@@ -30,7 +32,7 @@ export default function App() {
     event.preventDefault();
     console.log("Submitted.");
     console.log(form);
-    await fetch("http://localhost:8080/colournames", {
+    await fetch("https://colour-namer.onrender.com/colournames", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
