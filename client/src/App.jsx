@@ -2,6 +2,11 @@ import { useEffect, useState } from "react";
 
 export default function App() {
   const [colournames, setColourNames] = useState([]);
+  const [form, setForm] = useState({
+    group: "",
+    name: "",
+    hexcode: "",
+  });
 
   useEffect(() => {
     getColourNames();
@@ -14,18 +19,66 @@ export default function App() {
     console.log(data);
   }
 
+  function hanChange() {
+    console.log("Fiddled with form inputs.");
+    const name = event.target.name;
+    const value = event.target.value;
+    setForm({ ...form, [name]: value });
+  }
+
+  async function hanSubmit(event) {
+    event.preventDefault();
+    console.log("Submitted.");
+    console.log(form);
+    await fetch("http://localhost:8080/colournames", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(form),
+    });
+    setForm({
+      group: "",
+      name: "",
+      hexcode: "",
+    });
+    getColourNames();
+  }
+
   return (
     <div>
-      <h1>PANTSTONE</h1>
+      <h1>PANTSTONE™</h1>
       <p>Woo hoo</p>
       <h2>Add your colour!</h2>
-      <form>
-        <input
+      <form onSubmit={hanSubmit}>
+        <select
           name="group"
-          placeholder="Colour Group, i.e. Blue, Green, Grey etc."
+          id="colourtype"
+          onChange={hanChange}
+          value={form.group}
+        >
+          <option value="Red">Red</option>
+          <option value="Orange">Orange</option>
+          <option value="Yellow">Yellow</option>
+          <option value="Green">Green</option>
+          <option value="Blue">Blue</option>
+          <option value="Purple">Purple</option>
+          <option value="Pink">Pink</option>
+          <option value="Brown">Brown</option>
+          <option value="Grey">Grey</option>
+        </select>
+        <input
+          name="name"
+          placeholder="Name your colour"
+          onChange={hanChange}
+          value={form.name}
         />
-        <input name="name" placeholder="Name your colour" />
-        <input type="color" name="hexcode" />
+        <input
+          type="color"
+          name="hexcode"
+          onChange={hanChange}
+          value={form.hexcode}
+        />
         <button>Submit</button>
       </form>
 
