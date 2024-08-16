@@ -53,12 +53,7 @@ export default function App() {
       <p>Woo hoo</p>
       <h2>Add your colour!</h2>
       <form onSubmit={hanSubmit}>
-        <select
-          name="group"
-          id="colourtype"
-          onChange={hanChange}
-          value={form.group}
-        >
+        <select name="group" onChange={hanChange} value={form.group}>
           <option value="Red">Red</option>
           <option value="Orange">Orange</option>
           <option value="Yellow">Yellow</option>
