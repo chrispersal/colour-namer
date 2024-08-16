@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 export default function App() {
   const [colournames, setColourNames] = useState([]);
   const [form, setForm] = useState({
-    group: "",
     name: "",
     hexcode: "",
+    huegroup: "",
   });
 
   useEffect(() => {
@@ -32,18 +32,21 @@ export default function App() {
     event.preventDefault();
     console.log("Submitted.");
     console.log(form);
-    console.log(request.body);
-    await fetch("https://colour-namer.onrender.com/colournames", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(form),
-    });
+    const response = await fetch(
+      "https://colour-namer.onrender.com/colournames",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      }
+    );
+    console.log(response);
     setForm({
-      group: "",
       name: "",
       hexcode: "",
+      huegroup: "",
     });
     getColourNames();
   }
@@ -54,17 +57,6 @@ export default function App() {
       <p>Woo hoo</p>
       <h2>Add your colour!</h2>
       <form onSubmit={hanSubmit}>
-        <select name="group" onChange={hanChange} value={form.group}>
-          <option value="Red">Red</option>
-          <option value="Orange">Orange</option>
-          <option value="Yellow">Yellow</option>
-          <option value="Green">Green</option>
-          <option value="Blue">Blue</option>
-          <option value="Purple">Purple</option>
-          <option value="Pink">Pink</option>
-          <option value="Brown">Brown</option>
-          <option value="Grey">Grey</option>
-        </select>
         <input
           name="name"
           placeholder="Name your colour"
@@ -77,6 +69,17 @@ export default function App() {
           onChange={hanChange}
           value={form.hexcode}
         />
+        <select name="huegroup" onChange={hanChange} value={form.huegroup}>
+          <option value="Red">Red</option>
+          <option value="Orange">Orange</option>
+          <option value="Yellow">Yellow</option>
+          <option value="Green">Green</option>
+          <option value="Blue">Blue</option>
+          <option value="Purple">Purple</option>
+          <option value="Pink">Pink</option>
+          <option value="Brown">Brown</option>
+          <option value="Grey">Grey</option>
+        </select>
         <button>Submit</button>
       </form>
 
@@ -84,7 +87,7 @@ export default function App() {
 
       {colournames.map(function (pancolour) {
         return (
-          <h3 key={pancolour.group} style={{ color: pancolour.hexcode }}>
+          <h3 key={pancolour.huegroup} style={{ color: pancolour.hexcode }}>
             {pancolour.name}
           </h3>
         );

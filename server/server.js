@@ -21,12 +21,14 @@ app.get("/colournames", async function (request, response) {
 });
 
 app.post("/colournames", async function (request, response) {
-  const group = request.body.group;
+  console.log(request.body);
   const name = request.body.name;
   const hexcode = request.body.hexcode;
+  const huegroup = request.body.huegroup;
   await db.query(
-    `INSERT INTO colournames (group, name, hexcode) VALUES ($1, $2, $3)`,
-    [group, name, hexcode]
+    `INSERT INTO colournames (name, hexcode, huegroup) VALUES ($1, $2, $3)`,
+    [name, hexcode, huegroup]
+    // Group is the rough type of colour, Name is the colour name, and hexcode is the #XXXXXX value
   );
   response.json("POST endpoint here.");
 });
