@@ -3,17 +3,12 @@ import cors from "cors";
 import dotenv from "dotenv";
 import pg from "pg";
 
-const cors = require('cors');
-const express = require('express');
-let app = express();
+const app = express();
 app.use(cors());
-app.options('*', cors());
 app.use(express.json());
 dotenv.config();
 
 const db = new pg.Pool({ connectionString: process.env.DATABASE_URL });
-
-Access-Control-Allow-Origin: "https://pantstone.onrender.com/";
 
 app.get("/", function (request, response) {
   response.json(
