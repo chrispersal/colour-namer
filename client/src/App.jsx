@@ -32,6 +32,7 @@ export default function App() {
     event.preventDefault();
     console.log("Submitted.");
     console.log(form);
+    console.log(request.body);
     await fetch("https://colour-namer.onrender.com/colournames", {
       method: "POST",
       headers: {
