@@ -19,7 +19,7 @@ export default function App() {
     console.log(data);
   }
 
-  function hanChange() {
+  function hanChange(event) {
     console.log("Fiddled with form inputs.");
     const name = event.target.name;
     const value = event.target.value;
